@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منصتك التعليمية باسمك وهويتك</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#2563EB;
+    --blue-dark:#1D4ED8;
+    --purple:#7C3AED;
+    --purple-dark:#6D28D9;
+    --ink:#0F172A;
+    --ink-soft:#334155;
+    --muted:#64748B;
+    --line:#E6E9F2;
+    --bg:#FFFFFF;
+    --bg-soft:#F7F8FC;
+    --amber:#F59E0B;
+    --emerald:#10B981;
+    --pink:#EC4899;
+    --cyan:#06B6D4;
+    --grad-main:linear-gradient(135deg,var(--blue) 0%,var(--purple) 100%);
+    --grad-soft:linear-gradient(135deg,rgba(37,99,235,.08) 0%,rgba(124,58,237,.08) 100%);
+    --shadow-sm:0 2px 8px rgba(15,23,42,.06);
+    --shadow-md:0 8px 30px rgba(15,23,42,.08);
+    --shadow-lg:0 20px 60px rgba(37,99,235,.15);
+    --radius:20px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Tajawal',sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    overflow-x:hidden;
+    line-height:1.7;
+  }
+  h1,h2,h3,h4,.brand,.nav-links a,.btn,.stat-num,.step-num{font-family:'Cairo',sans-serif;}
+  img,svg{display:block;max-width:100%;}
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  .container{width:100%;max-width:1220px;margin:0 auto;padding:0 24px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:700;color:var(--purple);
+    background:rgba(124,58,237,.08);
+    border:1px solid rgba(124,58,237,.15);
+    padding:7px 16px;border-radius:100px;margin-bottom:20px;
+  }
+  .eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--grad-main);}
+  section{position:relative;}
+  .section-pad{padding:110px 0;}
+  .section-head{text-align:center;max-width:640px;margin:0 auto 64px;}
+  .section-head h2{font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.02em;margin-bottom:16px;}
+  .section-head p{color:var(--muted);font-size:17px;}
+  .grad-text{background:var(--grad-main);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  .reveal-scale{opacity:0;transform:scale(.94);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);}
+  .reveal-scale.in{opacity:1;transform:scale(1);}
+
+  /* ---------- nav ---------- */
+  header{
+    position:fixed;top:0;right:0;left:0;z-index:1000;
+    background:rgba(255,255,255,.72);
+    backdrop-filter:blur(18px) saturate(180%);
+    -webkit-backdrop-filter:blur(18px) saturate(180%);
+    border-bottom:1px solid rgba(230,233,242,.8);
+    transition:box-shadow .3s ease;
+  }
+  header.scrolled{box-shadow:0 4px 24px rgba(15,23,42,.06);}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1220px;margin:0 auto;}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;}
+  .brand-mark{
+    width:38px;height:38px;border-radius:11px;background:var(--grad-main);
+    display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:900;
+    box-shadow:0 6px 16px rgba(37,99,235,.35);
+  }
+  .nav-links{display:flex;align-items:center;gap:34px;}
+  .nav-links a{font-size:15px;font-weight:500;color:var(--ink-soft);position:relative;padding:4px 0;}
+  .nav-links a:hover{color:var(--blue);}
+  .nav-cta{display:flex;align-items:center;gap:14px;}
+  .nav-phone{font-size:14px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:6px;}
+  .nav-phone svg{width:16px;height:16px;stroke:var(--blue);}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-weight:700;font-size:15px;padding:13px 26px;border-radius:14px;
+    cursor:pointer;border:none;transition:transform .25s ease,box-shadow .25s ease,opacity .25s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--grad-main);color:#fff;box-shadow:0 10px 24px rgba(37,99,235,.3);}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 32px rgba(37,99,235,.4);}
+  .btn-ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line);}
+  .btn-ghost:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-3px);}
+  .btn-sm{padding:10px 20px;font-size:13.5px;border-radius:11px;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:168px 0 100px;
+    background:
+      radial-gradient(700px 420px at 85% -8%, rgba(124,58,237,.10), transparent 60%),
+      radial-gradient(700px 420px at 10% 8%, rgba(37,99,235,.10), transparent 60%);
+    overflow:hidden;
+  }
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:70px;align-items:center;text-align:center;}
+  .hero-copy h1{
+    font-size:clamp(34px,5.4vw,60px);font-weight:900;letter-spacing:-.03em;line-height:1.22;
+    margin-bottom:24px;
+  }
+  .hero-copy p.lead{
+    font-size:18px;color:var(--muted);max-width:620px;margin:0 auto 36px;
+  }
+  .hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:30px;}
+  .hero-phone{
+    display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:16px;
+    color:var(--ink-soft);
+  }
+  .hero-phone .ic{
+    width:38px;height:38px;border-radius:50%;background:var(--grad-soft);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .hero-phone .ic svg{width:18px;height:18px;stroke:var(--blue);}
+  .hero-phone bdi{direction:ltr;unicode-bidi:isolate;letter-spacing:.5px;}
+
+  /* dashboard mockup */
+  .mock-wrap{position:relative;perspective:1600px;padding:20px;}
+  .mock-frame{
+    position:relative;margin:0 auto;max-width:920px;
+    border-radius:22px;
+    background:#fff;
+    border:1px solid var(--line);
+    box-shadow:var(--shadow-lg), 0 60px 100px -30px rgba(37,99,235,.25);
+    transform:rotateX(6deg) rotateY(0deg);
+    transform-style:preserve-3d;
+    animation:floaty 7s ease-in-out infinite;
+    overflow:hidden;
+  }
+  @keyframes floaty{0%,100%{transform:rotateX(6deg) translateY(0);}50%{transform:rotateX(4deg) translateY(-12px);}}
+  .mock-bar{display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid var(--line);background:var(--bg-soft);}
+  .mock-bar span{width:10px;height:10px;border-radius:50%;background:#E2E8F0;}
+  .mock-bar span:nth-child(1){background:#FCA5A5;}
+  .mock-bar span:nth-child(2){background:#FCD34D;}
+  .mock-bar span:nth-child(3){background:#86EFAC;}
+  .mock-body{display:grid;grid-template-columns:190px 1fr;min-height:420px;}
+  .mock-side{background:var(--bg-soft);border-left:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;gap:6px;}
+  .mock-side .side-brand{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;margin-bottom:14px;padding:0 6px;}
+  .mock-side .side-brand i{width:24px;height:24px;border-radius:8px;background:var(--grad-main);}
+  .mock-side .item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font-size:12.5px;font-weight:600;color:var(--muted);}
+  .mock-side .item.active{background:#fff;color:var(--blue);box-shadow:var(--shadow-sm);}
+  .mock-side .item i{width:8px;height:8px;border-radius:3px;background:currentColor;opacity:.55;}
+  .mock-main{padding:22px 26px;text-align:right;}
+  .mock-top-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+  .mock-top-row h4{font-size:15px;font-weight:800;}
+  .mock-top-row .pill{font-size:11px;background:var(--grad-soft);color:var(--purple);padding:5px 12px;border-radius:100px;font-weight:700;}
+  .mock-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+  .mock-stat{background:var(--bg-soft);border:1px solid var(--line);border-radius:14px;padding:14px;}
+  .mock-stat b{display:block;font-size:19px;font-weight:800;}
+  .mock-stat span{font-size:11px;color:var(--muted);font-weight:600;}
+  .mock-chart{background:var(--bg-soft);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;align-items:flex-end;gap:9px;height:130px;margin-bottom:16px;}
+  .mock-chart i{flex:1;border-radius:6px 6px 0 0;background:linear-gradient(180deg,var(--blue),var(--purple));opacity:.85;}
+  .mock-rows{display:flex;flex-direction:column;gap:10px;}
+  .mock-row{display:flex;align-items:center;gap:12px;background:var(--bg-soft);border:1px solid var(--line);border-radius:12px;padding:10px 14px;}
+  .mock-row .dot{width:30px;height:30px;border-radius:9px;flex-shrink:0;background:var(--grad-main);}
+  .mock-row .txt{flex:1;}
+  .mock-row .txt b{display:block;font-size:12.5px;font-weight:700;}
+  .mock-row .txt span{font-size:11px;color:var(--muted);}
+  .mock-row .prog{width:70px;height:6px;border-radius:6px;background:var(--line);overflow:hidden;}
+  .mock-row .prog i{display:block;height:100%;background:var(--grad-main);border-radius:6px;}
+
+  .float-card{
+    position:absolute;background:rgba(255,255,255,.85);
+    backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,.6);
+    border-radius:16px;box-shadow:var(--shadow-lg);
+    padding:12px 16px;display:flex;align-items:center;gap:10px;
+    animation:floaty2 6s ease-in-out infinite;
+  }
+  .float-card .fc-ic{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;}
+  .float-card b{display:block;font-size:14px;font-weight:800;}
+  .float-card span{font-size:10.5px;color:var(--muted);font-weight:600;}
+  .float-1{top:6%;right:-2%;animation-delay:.3s;}
+  .float-1 .fc-ic{background:var(--emerald);}
+  .float-2{bottom:8%;left:-3%;animation-delay:1.1s;}
+  .float-2 .fc-ic{background:var(--amber);}
+  @keyframes floaty2{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+
+  @media(min-width:900px){
+    .hero-grid{text-align:right;}
+    .hero-actions{justify-content:flex-start;}
+    .hero-phone{justify-content:flex-start;}
+  }
+
+  /* ---------- logos / trust strip ---------- */
+  .trust{padding:36px 0;border-bottom:1px solid var(--line);}
+  .trust p{text-align:center;font-size:13px;color:var(--muted);font-weight:600;margin-bottom:20px;letter-spacing:.02em;}
+  .trust-row{display:flex;justify-content:center;gap:44px;flex-wrap:wrap;opacity:.55;}
+  .trust-row span{font-family:'Cairo',sans-serif;font-weight:800;font-size:16px;color:var(--ink-soft);}
+
+  /* ---------- features ---------- */
+  .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .fcard{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:30px 26px;transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s ease,border-color .35s ease;
+    position:relative;overflow:hidden;
+  }
+  .fcard::before{
+    content:'';position:absolute;inset:0;background:var(--grad-soft);opacity:0;transition:opacity .35s ease;
+  }
+  .fcard:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:transparent;}
+  .fcard:hover::before{opacity:1;}
+  .fcard-inner{position:relative;z-index:1;}
+  .ficon{width:52px;height:52px;border-radius:15px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 8px 18px -4px rgba(0,0,0,.18);}
+  .ficon svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:2;}
+  .fcard h3{font-size:17px;font-weight:800;margin-bottom:8px;}
+  .fcard p{font-size:14px;color:var(--muted);}
+
+  /* ---------- how it works ---------- */
+  .steps-wrap{position:relative;}
+  .steps-line{position:absolute;top:34px;right:12%;left:12%;height:2px;background:repeating-linear-gradient(to left,var(--line) 0 10px,transparent 10px 18px);display:none;}
+  .steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;position:relative;}
+  .step{text-align:center;}
+  .step-num{
+    width:68px;height:68px;border-radius:20px;margin:0 auto 22px;
+    background:var(--grad-main);color:#fff;display:flex;align-items:center;justify-content:center;
+    font-size:24px;font-weight:900;box-shadow:0 14px 28px -8px rgba(37,99,235,.45);
+    position:relative;z-index:1;
+  }
+  .step h4{font-size:16px;font-weight:800;margin-bottom:8px;}
+  .step p{font-size:13.5px;color:var(--muted);}
+  @media(min-width:900px){.steps-line{display:block;}}
+
+  /* ---------- showcase ---------- */
+  .showcase-bg{background:var(--bg-soft);}
+  .devices{display:flex;align-items:flex-end;justify-content:center;gap:0;margin-top:20px;flex-wrap:wrap;}
+  .device{position:relative;}
+  .d-desktop{width:min(560px,86vw);z-index:1;}
+  .d-desktop .screen{
+    background:#fff;border-radius:14px 14px 0 0;border:1px solid var(--line);border-bottom:none;
+    box-shadow:var(--shadow-lg);overflow:hidden;
+  }
+  .d-desktop .stand{width:130px;height:16px;background:#CBD5E1;margin:0 auto;border-radius:0 0 8px 8px;}
+  .d-desktop .base{width:220px;height:8px;background:#94A3B8;margin:0 auto;border-radius:6px;}
+  .d-tablet{width:170px;margin:0 -18px 10px;z-index:2;}
+  .d-tablet .screen{background:#fff;border:8px solid #1E2433;border-radius:20px;box-shadow:var(--shadow-lg);overflow:hidden;}
+  .d-mobile{width:118px;margin-bottom:0;z-index:3;}
+  .d-mobile .screen{background:#fff;border:7px solid #1E2433;border-radius:26px;box-shadow:var(--shadow-lg);overflow:hidden;}
+  .scr-bar{display:flex;gap:5px;padding:8px 10px;border-bottom:1px solid var(--line);}
+  .scr-bar span{width:6px;height:6px;border-radius:50%;background:#E2E8F0;}
+  .scr-pad{padding:12px;}
+  .scr-title{font-size:9px;font-weight:800;margin-bottom:8px;}
+  .scr-block{background:var(--bg-soft);border:1px solid var(--line);border-radius:8px;height:14px;margin-bottom:6px;}
+  .scr-block.w60{width:60%;}
+  .scr-block.w80{width:80%;}
+  .scr-video{aspect-ratio:16/9;border-radius:8px;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;margin-bottom:8px;}
+  .scr-video svg{width:20px;height:20px;fill:#fff;}
+  .scr-chart{display:flex;align-items:flex-end;gap:3px;height:44px;margin-bottom:6px;}
+  .scr-chart i{flex:1;background:linear-gradient(180deg,var(--blue),var(--purple));border-radius:3px 3px 0 0;opacity:.8;}
+  .scr-grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+  .scr-mini{background:var(--bg-soft);border:1px solid var(--line);border-radius:7px;padding:6px;}
+  .scr-mini b{display:block;font-size:10px;font-weight:800;}
+  .scr-mini span{font-size:7px;color:var(--muted);}
+  .showcase-tags{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:46px;}
+  .stag{font-size:12.5px;font-weight:700;background:#fff;border:1px solid var(--line);padding:8px 16px;border-radius:100px;color:var(--ink-soft);}
+
+  /* ---------- offer ---------- */
+  .offer-card{
+    border-radius:28px;padding:64px 40px;text-align:center;position:relative;overflow:hidden;
+    background:linear-gradient(135deg,var(--blue) 0%,var(--purple) 100%);
+    color:#fff;box-shadow:0 30px 70px -20px rgba(124,58,237,.5);
+  }
+  .offer-card::before,.offer-card::after{
+    content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,.12);
+  }
+  .offer-card::before{width:320px;height:320px;top:-140px;left:-80px;}
+  .offer-card::after{width:220px;height:220px;bottom:-100px;right:-40px;}
+  .offer-tag{
+    display:inline-block;font-size:13px;font-weight:800;background:rgba(255,255,255,.18);
+    padding:8px 18px;border-radius:100px;margin-bottom:22px;position:relative;z-index:1;
+  }
+  .offer-card h3{font-size:clamp(24px,3.6vw,36px);font-weight:900;margin-bottom:14px;position:relative;z-index:1;}
+  .offer-card .sub{font-size:15px;opacity:.9;margin-bottom:32px;position:relative;z-index:1;}
+  .price-row{display:flex;align-items:baseline;justify-content:center;gap:14px;margin-bottom:36px;position:relative;z-index:1;flex-wrap:wrap;}
+  .price-new{font-size:44px;font-weight:900;}
+  .price-new small{font-size:16px;font-weight:600;}
+  .price-old{font-size:20px;text-decoration:line-through;opacity:.6;font-weight:600;}
+  .offer-card .btn-primary{background:#fff;color:var(--blue);box-shadow:0 14px 30px rgba(0,0,0,.2);position:relative;z-index:1;}
+  .offer-card .btn-primary:hover{color:var(--purple);}
+  .offer-note{margin-top:18px;font-size:12.5px;opacity:.75;position:relative;z-index:1;}
+
+  /* ---------- testimonials ---------- */
+  .test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .tcard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow-sm);}
+  .stars{display:flex;gap:3px;margin-bottom:16px;}
+  .stars svg{width:16px;height:16px;fill:var(--amber);}
+  .tcard p.quote{font-size:14.5px;color:var(--ink-soft);margin-bottom:22px;}
+  .tperson{display:flex;align-items:center;gap:12px;}
+  .tavatar{width:42px;height:42px;border-radius:50%;background:var(--grad-main);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px;}
+  .tperson b{display:block;font-size:14px;font-weight:800;}
+  .tperson span{font-size:12px;color:var(--muted);}
+
+  /* ---------- faq ---------- */
+  .faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px;}
+  .faq-item{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:border-color .3s ease,box-shadow .3s ease;}
+  .faq-item.open{border-color:rgba(37,99,235,.3);box-shadow:var(--shadow-md);}
+  .faq-q{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;cursor:pointer;}
+  .faq-q h4{font-size:15.5px;font-weight:700;}
+  .faq-q .plus{width:28px;height:28px;border-radius:9px;background:var(--bg-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .35s ease,background .3s ease;}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg);background:var(--grad-main);}
+  .faq-item.open .faq-q .plus svg{stroke:#fff;}
+  .faq-q .plus svg{width:14px;height:14px;stroke:var(--blue);stroke-width:2.4;}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.22,1,.36,1);}
+  .faq-a p{padding:0 24px 22px;font-size:14px;color:var(--muted);}
+
+  /* ---------- final cta ---------- */
+  .final-cta{
+    text-align:center;padding:100px 0;position:relative;
+    background:
+      radial-gradient(600px 340px at 50% 0%, rgba(37,99,235,.08), transparent 65%);
+  }
+  .final-cta h2{font-size:clamp(28px,4.6vw,46px);font-weight:900;letter-spacing:-.02em;margin-bottom:18px;}
+  .final-cta p{color:var(--muted);font-size:16px;margin-bottom:38px;}
+  .final-actions{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:26px;}
+  .final-phone{font-weight:800;font-size:18px;color:var(--blue);}
+
+  /* ---------- footer ---------- */
+  footer{background:#0B1220;color:#94A3B8;padding:64px 0 26px;}
+  .foot-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;margin-bottom:44px;}
+  .foot-brand{max-width:280px;}
+  .foot-brand .brand{color:#fff;margin-bottom:14px;}
+  .foot-brand p{font-size:13.5px;line-height:1.8;}
+  .foot-cols{display:flex;gap:60px;flex-wrap:wrap;}
+  .foot-col h5{color:#fff;font-size:14px;font-weight:700;margin-bottom:16px;font-family:'Cairo',sans-serif;}
+  .foot-col a{display:block;font-size:13.5px;margin-bottom:10px;color:#94A3B8;transition:color .25s;}
+  .foot-col a:hover{color:#fff;}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:26px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+  .foot-bottom p{font-size:12.5px;}
+  .foot-socials{display:flex;gap:10px;}
+  .foot-socials a{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;transition:background .25s,transform .25s;}
+  .foot-socials a:hover{background:var(--grad-main);transform:translateY(-3px);}
+  .foot-socials svg{width:16px;height:16px;stroke:#fff;}
+  .foot-phone{display:flex;align-items:center;gap:8px;font-size:13.5px;color:#fff;font-weight:600;}
+  .foot-phone bdi{direction:ltr;}
+
+  @media(max-width:900px){
+    .nav-links{display:none;}
+    .features-grid{grid-template-columns:1fr 1fr;}
+    .steps-grid{grid-template-columns:1fr 1fr;}
+    .test-grid{grid-template-columns:1fr;}
+    .mock-body{grid-template-columns:1fr;}
+    .mock-side{display:none;}
+    .devices{gap:0;}
+  }
+  @media(max-width:560px){
+    .features-grid{grid-template-columns:1fr;}
+    .steps-grid{grid-template-columns:1fr;}
+    .mock-stats{grid-template-columns:1fr 1fr;}
+    .hero{padding-top:140px;}
+    .foot-top{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <nav>
+    <a href="#top" class="brand"><span class="brand-mark">م</span>مِنَصّتي</a>
+    <div class="nav-links">
+      <a href="#features">المميزات</a>
+      <a href="#how">كيف تعمل</a>
+      <a href="#showcase">لوحة التحكم</a>
+      <a href="#offer">العرض الخاص</a>
+      <a href="#faq">الأسئلة الشائعة</a>
+    </div>
+    <div class="nav-cta">
+      <a class="nav-phone" href="https://wa.me/201037623919?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A7%D9%84%D9%85%D9%86%D8%B5%D8%A9%20%D8%A7%D9%84%D8%AA%D8%B9%D9%84%D9%8A%D9%85%D9%8A%D8%A9" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><bdi>01037623919</bdi></a>
+      <a href="https://wa.me/201037623919?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A8%D8%AF%D8%A1%20%D9%81%D9%8A%20%D8%A5%D9%86%D8%B4%D8%A7%D8%A1%20%D9%85%D9%86%D8%B5%D8%AA%D9%8A%20%D8%A7%D9%84%D8%AA%D8%B9%D9%84%D9%8A%D9%85%D9%8A%D8%A9%20%D8%A7%D9%84%D8%AE%D8%A7%D8%B5%D8%A9" target="_blank" rel="noopener" class="btn btn-primary btn-sm">ابدأ الآن</a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy reveal">
+        <span class="eyebrow">منصة متكاملة لكل مُعلّم</span>
+        <h1>منصتك التعليمية <span class="grad-text">باسمك وهويتك</span></h1>
+        <p class="lead">أنشئ منصة احترافية لطلابك تضم الكورسات، الفيديوهات، الامتحانات، والمذكرات، مع متابعة كاملة لتقدم الطلاب.</p>
+        <div class="hero-actions">
+          <a href="https://wa.me/201037623919?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A8%D8%AF%D8%A1%20%D9%81%D9%8A%20%D8%A5%D9%86%D8%B4%D8%A7%D8%A1%20%D9%85%D9%86%D8%B5%D8%AA%D9%8A%20%D8%A7%D9%84%D8%AA%D8%B9%D9%84%D9%8A%D9%85%D9%8A%D8%A9%20%D8%A7%D9%84%D8%AE%D8%A7%D8%B5%D8%A9" target="_blank" rel="noopener" class="btn btn-primary">ابدأ الآن</a>
+          <a href="https://wa.me/201037623919?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D9%85%D8%B4%D8%A7%D9%87%D8%AF%D8%A9%20%D9%86%D9%85%D9%88%D8%B0%D8%AC%20%D9%84%D9%84%D9%85%D9%86%D8%B5%D8%A9%20%D8%A7%D9%84%D8%AA%D8%B9%D9%84%D9%8A%D9%85%D9%8A%D8%A9" target="_blank" rel="noopener" class="btn btn-ghost">شاهد نموذج</a>
+        </div>
+        <a class="hero-phone" href="https://wa.me/201037623919?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A7%D9%84%D9%85%D9%86%D8%B5%D8%A9%20%D8%A7%D9%84%D8%AA%D8%B9%D9%84%D9%8A%D9%85%D9%8A%D8%A9" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span> تواصل معنا مباشرة على <bdi>01037623919</bdi></a>
+      </div>
+
+      <div class="mock-wrap reveal-scale">
+        <div class="mock-frame">
+          <div class="mock-bar"><span></span><span></span><span></span></div>
+          <div class="mock-body">
+            <div class="mock-side">
+              <div class="side-brand"><i></i> لوحة المعلم</div>
+              <div class="item active"><i></i> الرئيسية</div>
+              <div class="item"><i></i> الكورسات</div>
+              <div class="item"><i></i> الفيديوهات</div>
+              <div class="item"><i></i> الامتحانات</div>
+              <div class="item"><i></i> المذكرات</div>
+              <div class="item"><i></i> الطلاب</div>
+              <div class="item"><i></i> الإشعارات</div>
+            </div>
+            <div class="mock-main">
+              <div class="mock-top-row"><h4>نظرة عامة على الأداء</h4><span class="pill">هذا الأسبوع +12%</span></div>
+              <div class="mock-stats">
+                <div class="mock-stat"><b>1,284</b><span>طالب مسجل</span></div>
+                <div class="mock-stat"><b>36</b><span>كورس نشط</span></div>
+                <div class="mock-stat"><b>92%</b><span>نسبة الحضور</span></div>
+                <div class="mock-stat"><b>4.9</b><span>تقييم الطلاب</span></div>
+              </div>
+              <div class="mock-chart">
+                <i style="height:40%"></i><i style="height:65%"></i><i style="height:50%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:95%"></i><i style="height:70%"></i><i style="height:60%"></i><i style="height:85%"></i><i style="height:45%"></i>
+              </div>
+              <div class="mock-rows">
+                <div class="mock-row"><div class="dot"></div><div class="txt"><b>اختبار الوحدة الثالثة</b><span>امتحان إلكتروني · نشط</span></div><div class="prog"><i style="width:70%"></i></div></div>
+                <div class="mock-row"><div class="dot"></div><div class="txt"><b>مقدمة في الفيزياء</b><span>فيديو تعليمي · 24 دقيقة</span></div><div class="prog"><i style="width:45%"></i></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="float-card float-1">
+          <div class="fc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round"><polyline points="4 14 9 9 13 13 20 5"/></svg></div>
+          <div><b>+38%</b><span>تقدم الطلاب</span></div>
+        </div>
+        <div class="float-card float-2">
+          <div class="fc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h11"/></svg></div>
+          <div><b>96 امتحان</b><span>تم إنشاؤها هذا الفصل</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="trust reveal">
+    <div class="container">
+      <p>موثوقة من مئات المعلمين في مختلف التخصصات</p>
+      <div class="trust-row">
+        <span>معلمو اللغة العربية</span>
+        <span>مدرسو الرياضيات</span>
+        <span>معلمو العلوم</span>
+        <span>مراكز اللغات</span>
+        <span>مدرّبو المهارات</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="section-pad">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">كل ما تحتاجه في مكان واحد</span>
+        <h2>مميزات مصممة خصيصًا للمعلمين</h2>
+        <p>أدوات احترافية متكاملة تساعدك على إدارة عملك التعليمي بسهولة واحترافية.</p>
+      </div>
+      <div class="features-grid">
+
+        <div class="fcard reveal"><div class="fcard-inner">
+          <div class="ficon" style="background:linear-gradient(135deg,var(--blue),#3B82F6)"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+          <h3>فيديوهات تعليمية</h3>
+          <p>ارفع دروسك المصورة بجودة عالية مع مشغل فيديو سلس ومحمي من التحميل.</p>
+        </div></div>
+
+        <div class="fcard reveal"><div class="fcard-inner">
+          <div class="ficon" style="background:linear-gradient(135deg,var(--purple),#A855F7)"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+          <h3>كورسات منظمة</h3>
+          <p>نظّم المحتوى في وحدات ودروس متسلسلة يسهل على الطالب متابعتها خطوة بخطوة.</p>
+        </div></div>
+
+        <div class="fcard reveal"><div class="fcard-inner">
+          <div class="ficon" style="background:linear-gradient(135deg,var(--emerald),#34D399)"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <h3>امتحانات إلكترونية</h3>
+          <p>أنشئ اختبارات تفاعلية بأنواع أسئلة متعددة مع تصحيح تلقائي فوري للنتائج.</p>
+        </div></div>
+
+        <div class="fcard reveal"><div class="fcard-inner">
+          <div class="ficon" style="background:linear-gradient(135deg,var(--pink),#F472B6)"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></div>
+          <h3>رفع المذكرات PDF</h3>
+          <p>شارك المذكرات والملازم بصيغة PDF مباشرة على المنصة بشكل منظم لكل مادة.</p>
+        </div></div>
+
+        <div class="fcard reveal"><div class="fcard-inner">
+          <div class="ficon" style="background:linear-gradient(135deg,var(--cyan),#22D3EE)"><svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+          <h3>متابعة تقدم الطلاب</h3>
+          <p>تقارير تفصيلية عن أداء كل طالب، حضوره، ودرجاته لحظة بلحظة.</p>
+        </div></div>
+
+        <div class="fcard reveal"><div class="fcard-inner">
+          <div class="ficon" style="background:linear-gradient(135deg,var(--blue),var(--purple))"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></div>
+          <h3>لوحة تحكم احترافية</h3>
+          <p>واجهة تحكم بسيطة وسهلة الاستخدام تمنحك رؤية شاملة لمنصتك بالكامل.</p>
+        </div></div>
+
+        <div class="fcard reveal"><div class="fcard-inner">
+          <div class="ficon" style="background:linear-gradient(135deg,var(--amber),#FBBF24)"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+          <h3>إدارة الاشتراكات</h3>
+          <p>تحكم كامل في باقات واشتراكات الطلاب مع تجديد ومتابعة تلقائية للمدفوعات.</p>
+        </div></div>
+
+        <div class="fcard reveal"><div class="fcard-inner">
+          <div class="ficon" style="background:linear-gradient(135deg,var(--purple),#C084FC)"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+          <h3>إشعارات للطلاب</h3>
+          <p>أرسل تنبيهات فورية للطلاب عن الدروس والامتحانات الجديدة والمواعيد المهمة.</p>
+        </div></div>
+
+        <div class="fcard reveal"><div class="fcard-inner">
+          <div class="ficon" style="background:linear-gradient(135deg,var(--blue),#0EA5E9)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+          <h3>هوية خاصة باسم المدرس</h3>
+          <p>منصتك بشعارك وألوانك ورابطك الخاص، تعكس هويتك التعليمية المستقلة.</p>
+        </div></div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="section-pad showcase-bg">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">رحلة بسيطة من 4 خطوات</span>
+        <h2>كيف تبدأ منصتك الخاصة؟</h2>
+        <p>خطوات مباشرة ومرتبة تأخذك من فكرة إلى منصة تعليمية جاهزة لاستقبال الطلاب.</p>
+      </div>
+      <div class="steps-wrap">
+        <div class="steps-line"></div>
+        <div class="steps-grid">
+          <div class="step reveal"><div class="step-num">1</div><h4>تواصل معنا</h4><p>احجز استشارة سريعة وأخبرنا باحتياجاتك ومادتك التعليمية.</p></div>
+          <div class="step reveal"><div class="step-num">2</div><h4>تصميم المنصة باسمك</h4><p>نجهز منصة بهويتك البصرية الخاصة: شعارك، ألوانك، ورابطك.</p></div>
+          <div class="step reveal"><div class="step-num">3</div><h4>إضافة المحتوى</h4><p>ارفع كورساتك وفيديوهاتك وامتحاناتك بسهولة عبر لوحة التحكم.</p></div>
+          <div class="step reveal"><div class="step-num">4</div><h4>بدء استقبال الطلاب</h4><p>افتح باب التسجيل وابدأ في متابعة تقدم طلابك من أول يوم.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD SHOWCASE -->
+  <section id="showcase" class="section-pad">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">تجربة متكاملة على كل الأجهزة</span>
+        <h2>منصتك تعمل بسلاسة أينما كنت</h2>
+        <p>لوحة المعلم، لوحة الطالب، صفحة الكورس، ومشغل الفيديو والامتحانات، على الديسك توب والتابلت والموبايل.</p>
+      </div>
+
+      <div class="devices reveal-scale">
+        <div class="device d-desktop">
+          <div class="screen">
+            <div class="scr-bar"><span></span><span></span><span></span></div>
+            <div class="scr-pad" style="padding:18px;">
+              <div class="scr-title" style="font-size:12px;margin-bottom:12px;">لوحة تحكم المعلم</div>
+              <div class="scr-grid2" style="grid-template-columns:repeat(4,1fr);margin-bottom:10px;">
+                <div class="scr-mini"><b>1,284</b><span>طالب</span></div>
+                <div class="scr-mini"><b>36</b><span>كورس</span></div>
+                <div class="scr-mini"><b>96</b><span>امتحان</span></div>
+                <div class="scr-mini"><b>4.9</b><span>تقييم</span></div>
+              </div>
+              <div class="scr-chart" style="height:70px;">
+                <i style="height:40%"></i><i style="height:70%"></i><i style="height:55%"></i><i style="height:90%"></i><i style="height:60%"></i><i style="height:100%"></i><i style="height:75%"></i><i style="height:50%"></i><i style="height:85%"></i><i style="height:65%"></i><i style="height:95%"></i><i style="height:45%"></i>
+              </div>
+            </div>
+          </div>
+          <div class="stand"></div>
+          <div class="base"></div>
+        </div>
+
+        <div class="device d-tablet">
+          <div class="screen">
+            <div class="scr-bar"><span></span><span></span><span></span></div>
+            <div class="scr-pad">
+              <div class="scr-title">صفحة الكورس</div>
+              <div class="scr-video"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></div>
+              <div class="scr-block w80"></div>
+              <div class="scr-block w60"></div>
+              <div class="scr-grid2" style="margin-top:8px;">
+                <div class="scr-mini"><b>12</b><span>درس</span></div>
+                <div class="scr-mini"><b>3</b><span>امتحانات</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="device d-mobile">
+          <div class="screen">
+            <div class="scr-bar"><span></span><span></span><span></span></div>
+            <div class="scr-pad">
+              <div class="scr-title">لوحة الطالب</div>
+              <div class="scr-block w80"></div>
+              <div class="scr-block w60"></div>
+              <div class="scr-mini" style="margin-top:6px;"><b>82%</b><span>نسبة التقدم</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase-tags reveal">
+        <span class="stag">لوحة المعلم</span>
+        <span class="stag">لوحة الطالب</span>
+        <span class="stag">صفحة الكورس</span>
+        <span class="stag">مشغل الفيديو</span>
+        <span class="stag">الامتحان الإلكتروني</span>
+        <span class="stag">تحليلات تقدم الطلاب</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFER -->
+  <section id="offer" class="section-pad">
+    <div class="container">
+      <div class="offer-card reveal-scale">
+        <span class="offer-tag">🎉 عرض خاص لأول 10 مدرسين</span>
+        <h3>أول شهر مجانًا بالكامل</h3>
+        <p class="sub">جرّب منصتك الخاصة بدون أي مخاطرة، وابدأ في استقبال طلابك من اليوم الأول.</p>
+        <div class="price-row">
+          <span class="price-new">500 <small>جنيه / شهريًا</small></span>
+          <span class="price-old">800 جنيه</span>
+        </div>
+        <a href="https://wa.me/201037623919?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%AD%D8%AC%D8%B2%20%D9%85%D9%83%D8%A7%D9%86%D9%8A%20%D9%81%D9%8A%20%D8%B9%D8%B1%D8%B6%20%D8%A3%D9%88%D9%84%2010%20%D9%85%D8%AF%D8%B1%D8%B3%D9%8A%D9%86" target="_blank" rel="noopener" class="btn btn-primary">احجز مكانك الآن</a>
+        <p class="offer-note">العرض متاح لعدد محدود من المعلمين فقط، وينتهي عند اكتمال العدد.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section-pad showcase-bg">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">آراء المعلمين</span>
+        <h2>ماذا يقول المعلمون عنا؟</h2>
+        <p>تجارب حقيقية من معلمين أطلقوا منصاتهم الخاصة معنا.</p>
+      </div>
+      <div class="test-grid">
+        <div class="tcard reveal">
+          <div class="stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+          </div>
+          <p class="quote">منذ ما بدأت أستخدم المنصة، بقيت متابع كل طالب بشكل دقيق. الامتحانات الإلكترونية وفرت عليّ وقت كبير جدًا.</p>
+          <div class="tperson"><div class="tavatar">أ.م</div><div><b>أستاذ محمود سعيد</b><span>معلم رياضيات، الثانوية العامة</span></div></div>
+        </div>
+        <div class="tcard reveal">
+          <div class="stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+          </div>
+          <p class="quote">أهلي وطلابي حسّوا إن عندي هوية مستقلة فعلاً. المنصة باسمي وشعاري، وده خلاني أبني ثقة أكبر مع أهالي الطلاب.</p>
+          <div class="tperson"><div class="tavatar">س.ع</div><div><b>أستاذة سارة عبد الله</b><span>معلمة لغة عربية</span></div></div>
+        </div>
+        <div class="tcard reveal">
+          <div class="stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9"/></svg>
+          </div>
+          <p class="quote">التقارير التفصيلية عن تقدم كل طالب سهّلت عليّ متابعة الفصل كله، وقدرت أكتشف الطلاب اللي محتاجين متابعة أكتر بسرعة.</p>
+          <div class="tperson"><div class="tavatar">ي.ح</div><div><b>أستاذ ياسر حسن</b><span>معلم علوم وفيزياء</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section-pad">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">أسئلة شائعة</span>
+        <h2>كل ما تحتاج معرفته</h2>
+        <p>إجابات على أكثر الأسئلة شيوعًا حول المنصة وطريقة العمل.</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item reveal">
+          <div class="faq-q"><h4>هل المنصة تحمل اسمي وشعاري الخاص؟</h4><span class="plus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14"/></svg></span></div>
+          <div class="faq-a"><p>نعم، نصمم لك منصة كاملة بهويتك البصرية: اسمك، شعارك، ألوانك، ورابطك الخاص، بحيث تظهر لطلابك كمنتج مستقل باسمك.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q"><h4>كم يستغرق تجهيز المنصة؟</h4><span class="plus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14"/></svg></span></div>
+          <div class="faq-a"><p>غالبًا يتم تجهيز المنصة الأساسية خلال أيام قليلة من تواصلك معنا، وبعدها تبدأ في إضافة المحتوى الخاص بك بنفسك أو بمساعدتنا.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q"><h4>هل يمكنني إنشاء امتحانات إلكترونية بأنواع أسئلة مختلفة؟</h4><span class="plus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14"/></svg></span></div>
+          <div class="faq-a"><p>بالتأكيد، تدعم المنصة أنواعًا متعددة من الأسئلة مع تصحيح تلقائي فوري، وتقارير مفصلة بنتائج كل طالب بعد كل امتحان.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q"><h4>كيف أتابع تقدم الطلاب؟</h4><span class="plus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14"/></svg></span></div>
+          <div class="faq-a"><p>توفر لوحة التحكم تقارير تفصيلية عن حضور كل طالب، درجاته، ونسبة تقدمه في كل كورس، بالإضافة إلى إشعارات فورية بأي تحديث.</p></div>
+        </div>
+        <div class="faq-item reveal">
+          <div class="faq-q"><h4>هل يمكن للطلاب الدفع والاشتراك مباشرة عبر المنصة؟</h4><span class="plus"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14"/></svg></span></div>
+          <div class="faq-a"><p>نعم، تتيح المنصة إدارة الاشتراكات والباقات بالكامل، مع متابعة تلقائية لحالة كل اشتراك وتنبيهات عند اقتراب موعد التجديد.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="container">
+      <div class="reveal">
+        <span class="eyebrow">ابدأ اليوم، لا غدًا</span>
+        <h2>ابدأ منصتك التعليمية <span class="grad-text">اليوم</span></h2>
+        <p>انضم إلى نخبة من المعلمين الذين يديرون تعليمهم باستقلالية واحترافية.</p>
+        <div class="final-actions">
+          <a href="https://wa.me/201037623919?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A8%D8%AF%D8%A1%20%D9%81%D9%8A%20%D8%A5%D9%86%D8%B4%D8%A7%D8%A1%20%D9%85%D9%86%D8%B5%D8%AA%D9%8A%20%D8%A7%D9%84%D8%AA%D8%B9%D9%84%D9%8A%D9%85%D9%8A%D8%A9%20%D8%A7%D9%84%D8%AE%D8%A7%D8%B5%D8%A9" target="_blank" rel="noopener" class="btn btn-primary">ابدأ الآن</a>
+          <a href="https://wa.me/201037623919?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D9%85%D8%B4%D8%A7%D9%87%D8%AF%D8%A9%20%D9%86%D9%85%D9%88%D8%B0%D8%AC%20%D9%84%D9%84%D9%85%D9%86%D8%B5%D8%A9%20%D8%A7%D9%84%D8%AA%D8%B9%D9%84%D9%8A%D9%85%D9%8A%D8%A9" target="_blank" rel="noopener" class="btn btn-ghost">شاهد نموذج</a>
+        </div>
+        <a class="final-phone" href="https://wa.me/201037623919?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A7%D9%84%D9%85%D9%86%D8%B5%D8%A9%20%D8%A7%D9%84%D8%AA%D8%B9%D9%84%D9%8A%D9%85%D9%8A%D8%A9" target="_blank" rel="noopener">📞 <bdi>01037623919</bdi></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a href="#top" class="brand"><span class="brand-mark">م</span>مِنَصّتي</a>
+        <p>نساعد المعلمين على بناء منصاتهم التعليمية الخاصة بهوية مستقلة وأدوات احترافية متكاملة.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h5>روابط سريعة</h5>
+          <a href="#features">المميزات</a>
+          <a href="#how">كيف تعمل</a>
+          <a href="#showcase">لوحة التحكم</a>
+          <a href="#faq">الأسئلة الشائعة</a>
+        </div>
+        <div class="foot-col">
+          <h5>تواصل معنا</h5>
+          <a class="foot-phone" href="https://wa.me/201037623919?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A7%D9%84%D9%85%D9%86%D8%B5%D8%A9%20%D8%A7%D9%84%D8%AA%D8%B9%D9%84%D9%8A%D9%85%D9%8A%D8%A9" target="_blank" rel="noopener">📞 <bdi>01037623919</bdi></a>
+          <a href="https://wa.me/201037623919?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A7%D9%84%D9%85%D9%86%D8%B5%D8%A9%20%D8%A7%D9%84%D8%AA%D8%B9%D9%84%D9%8A%D9%85%D9%8A%D8%A9" target="_blank" rel="noopener">واتساب مباشر</a>
+          <a href="#top">البريد الإلكتروني</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2026 مِنَصّتي. جميع الحقوق محفوظة.</p>
+      <div class="foot-socials">
+        <a href="https://wa.me/201037623919?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%A7%D9%84%D9%85%D9%86%D8%B5%D8%A9%20%D8%A7%D9%84%D8%AA%D8%B9%D9%84%D9%8A%D9%85%D9%8A%D8%A9" target="_blank" rel="noopener" aria-label="واتساب"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
+        <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" aria-label="انستغرام"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // header shadow on scroll
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 12);
+  });
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal, .reveal-scale').forEach(el => io.observe(el));
+
+  // faq accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(o => {
+        o.classList.remove('open');
+        o.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+</script>
+</body>
+</html>
